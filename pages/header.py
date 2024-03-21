@@ -1,6 +1,10 @@
-from selenium.webdriver.common.by import By
-from time import sleep
 from pages.base_page import Page
+from selenium.webdriver.common.by import By
+# from pages.header import Header
+from time import sleep
+from pages.main_page import MainPage
+from pages.search_results_page import SearchResultsPage
+
 
 class Header(Page):
     CART_ICON = (By.CSS_SELECTOR, "[data-test='@web/CartLink']")

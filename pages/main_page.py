@@ -5,13 +5,13 @@ from selenium.webdriver.common.by import By
 
 class MainPage(Page):
 
-    SEARCH_FIELD = (By.CSS_SELECTOR, '#field-6')
-    FILTER_BTN = (By.CSS_SELECTOR, '#wf-form-Search-form')
+    SEARCH_FIELD = (By.ID, 'search')
+    SEARCH_BTN = (By.CSS_SELECTOR, "[data-test='@web/Search/SearchButton']")
 
-    def open_main(self):
-        self.driver.get('https://soft.reelly.io/off-plan')
+    def open_main(context):
+        context.driver.get('https://www.target.com/')
 
-    def search(self, item):
-        self.input_text(item, *self.SEARCH_FIELD)
-        self.click(*self.FILTER_BTN)
+    def search(self, product):
+        self.input_text(product, *self.SEARCH_FIELD)
+        self.click(*self.SEARCH_BTN)
         sleep(6)  # wait for ads to disappear

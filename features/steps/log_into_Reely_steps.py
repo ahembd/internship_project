@@ -2,8 +2,6 @@ from behave import *
 from selenium.webdriver.common.by import By
 from time import sleep
 
-from pages.main_page import MainPage
-from pages.base_page import Page
 use_step_matcher("re")
 
 
@@ -19,9 +17,6 @@ def log_into_reelly(context):
     context.driver.find_element(By.CSS_SELECTOR, ('#field')).send_keys(password)
     # continue button
     continue_button = context.driver.find_element(By.XPATH, '//*[@id="wf-form-Sign-up"]/a').click()
-
-    # BALI_SELECTOR = context.driver.find_element(By.XPATH, ('//*[@id="w-node-a12e6235-4ea1-44ef-5a02-9f96ec022f3d-7f66de48"]/a/h2'))
-    # BALI_SELECTOR.click()
 
 
 
