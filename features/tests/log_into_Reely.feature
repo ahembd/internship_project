@@ -5,7 +5,7 @@ Feature: The user is able to log into the Reely application
 
   Scenario: The user can log into Really and view properties by cost,
   construction date, property type and location.
-    Given that the user has logged into https://soft.reelly.io/off-plan
+    Given that the user has logged into the main page
     When the user clicks Bali
     Then properties in Bali which are in the system will appear
 #    When the user chooses construction date of 4Q 2024
