@@ -4,8 +4,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
-
 from app.application import Application
+from support.logger import logger
 
 
 def browser_init(context, scenario_name):
@@ -15,7 +15,6 @@ def browser_init(context, scenario_name):
     driver_path = ChromeDriverManager().install()
     service = Service(driver_path)
     context.driver = webdriver.Chrome(service=service)
-    print('up top, service = ' + str(service))
 
 ###########################################
     ##### For running in Firefox ##########
@@ -49,20 +48,20 @@ def browser_init(context, scenario_name):
 
     ### BROWSERSTACK ###
     # Register for BrowserStack, then grab it from https://www.browserstack.com/accounts/settings
-    bs_user = 'alberthembd_KDjYed'
-    bs_key = 'YVWXkX9EghNgc7X5yLDo'
-    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-
-    options = Options()
-    bstack_options = {
-        'os': 'Windows',
-        'osVersion': '10',
-        'browserName': 'Firefox',
-        'sessionName': scenario_name
-    }
+    # bs_user = 'alberthembd_KDjYed'
+    # bs_key = 'YVWXkX9EghNgc7X5yLDo'
+    # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
     #
-    options.set_capability('bstack:options', bstack_options)
-    context.driver = webdriver.Remote(command_executor=url, options=options)
+    # options = Options()
+    # bstack_options = {
+    #     'os': 'Windows',
+    #     'osVersion': '10',
+    #     'browserName': 'Firefox',
+    #     'sessionName': scenario_name
+    # }
+    #
+    # options.set_capability('bstack:options', bstack_options)
+    # context.driver = webdriver.Remote(command_executor=url, options=options)
 
     context.driver.maximize_window()
 
@@ -71,20 +70,21 @@ def browser_init(context, scenario_name):
     context.app = Application(context.driver)
 
 def before_scenario(context, scenario):
-    print('\nStarted scenario: ', scenario.name)
-    print('about to call browser_init a second time, scenario_name is: ', scenario.name)
+    # print('\nStarted scenario: ', scenario.name)
+    logger.info(f'\nStarted scenario: {scenario.name}')
+    logger.info(f'about to call browser_init a second time, scenario_name is: {scenario.name}')
     browser_init(context, scenario.name)
 
 
 def before_step(context, step):
-    print('\nStarted step: ', step)
+    logger.info(f'\nStarted step: {step}')
 
 
 def after_step(context, step):
     if step.status == 'failed':
         # Screenshot:
         # context.driver.save_screenshot(f'step_failed_{step}.png')
-        print('\nStep failed: ', step)
+        logger.info(f'\nStep failed: {step}')
 
 
 def after_scenario(context, feature):
